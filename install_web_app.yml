@@ -1,9 +1,26 @@
-- host: all
+---
+- hosts: staging
   become: true
   tasks:
 
-  - name: update repository index
+  - name: install updates (Ubuntu)
     apt:
+      upgrade: dist
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
-  
+
+
+
+  # - name: install apache2 package
+  #   apt:
+  #     name: apache2
+  #     state: latest
+  #   when: ansible_distribution == "Ubuntu"
+  # - name: copy default .env file
+  #   tags: env
+  #   copy: 
+  #     src: .env
+  #     dest: /home/bootcamp_app/.env
+  #     owner: root
+  #     group: root
+  #     mode: 0644
