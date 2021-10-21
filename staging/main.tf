@@ -37,7 +37,7 @@ module "staging_vm" {
   vm_name               = "stagig-vm-${count.index}"
   rg_name               = azurerm_resource_group.staging.name
   cloud_location        = azurerm_resource_group.staging.location
-  vm_size               = "Standard_B2ms"
+  vm_size               = "Standard_B1s"
   user_name             = "${var.user_name}_${count.index}"
   admin_pass            = var.admin_password
   disable_password_auth = false
@@ -75,7 +75,7 @@ module "postgres" {
 
   rg_name = azurerm_resource_group.staging.name
   cloud_location = var.cloud_location
-  postgresql_server_name = "database"
+  postgresql_server_name = "postgreas-database"
   
   postgresql_database_name = "weightTracker"
   postgreseql_version = var.version_postgres

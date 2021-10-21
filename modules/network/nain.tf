@@ -60,8 +60,8 @@ resource "azurerm_public_ip" "to_front_lb" {
 }
 
 resource "azurerm_public_ip" "to_web" {
-  count               = 3
-  name                = "web-${count.index}"
+  count               = var.instance_number
+  name                = "web-pub-ip-${count.index}"
   location            = var.cloud_location
   resource_group_name = var.rg_name
   allocation_method   = "Static"
@@ -120,6 +120,7 @@ resource "azurerm_lb_rule" "port_8080" {
   backend_port                   = 8080
   frontend_ip_configuration_name = "PublicIPAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.for_websits.id
+  probe_id = azurerm_lb_probe.web_8080.id
 }
 resource "azurerm_lb_rule" "port_22" {
   resource_group_name            = var.rg_name
@@ -130,13 +131,15 @@ resource "azurerm_lb_rule" "port_22" {
   backend_port                   = 22
   frontend_ip_configuration_name = "PublicIPAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.for_websits.id
+  probe_id = azurerm_lb_probe.ssh_22.id
 }
 
 # by connecting the NICs VMs we associate the VM to the backend pool
 resource "azurerm_network_interface_backend_address_pool_association" "web_vms" {
-  count                   = 2
+  count                   = var.instance_number
   network_interface_id    = azurerm_network_interface.web_server[count.index].id
-  ip_configuration_name   = "testconfiguration"
+  #ip_configuration_name   = "internal_${count.index}"
+  ip_configuration_name   = azurerm_network_interface.web_server[count.index].ip_configuration[0].name
   backend_address_pool_id = azurerm_lb_backend_address_pool.for_websits.id
   depends_on = [
     azurerm_network_interface.web_server
