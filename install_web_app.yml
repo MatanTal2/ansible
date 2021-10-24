@@ -1,25 +1,30 @@
 # ================= Staging =================
----
-- hosts: staging
-  become: true
-  roles:
-    - role: base
+# ---
+# - hosts: staging
+#   become: true
+#   roles:
+#     - role: base
 
-# =========================
-- hosts: staging
-  roles:
-    - role: weight_tracker
+# # =========================
+# - hosts: staging
+#   roles:
+#     - role: weight_tracker
 
-# =========================
-- hosts: staging
-  roles:
-    - role: envfile
+# # =========================
+# - hosts: staging
+#   roles:
+#     - role: envfile
 
-# =========================
-- hosts: staging
-  become: true
-  roles:
-    - role: services
+# # =========================
+# - hosts: staging
+#   become: true
+#   roles:
+#     - role: services
+
+# - hosts: production
+#   roles:
+#     - role: database
+
 # ================= production =================
 ---
 - hosts: production
@@ -42,3 +47,7 @@
   become: true
   roles:
     - role: services
+
+- hosts: production
+  roles:
+    - role: database
