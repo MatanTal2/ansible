@@ -1,0 +1,41 @@
+# upgeade the system
+- name: install updatupgradees (Ubuntu)
+  apt:
+    upgrade: dist
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+# reboot the system to apply upgrade
+- name: Reboot box if kernel/libs updated and requested by the system
+  shell: sleep 10 && /sbin/shutdown -r now 'Rebooting box to update system libs/kernel as needed' 
+  args:
+      removes: /var/run/reboot-required
+  async: 300
+  poll: 0
+  ignore_errors: true
+
+# wait for the system to back online
+- name: Wait for system to become reachable again
+  wait_for_connection:
+    delay: 60
+    timeout: 300
+
+# install NodeJS
+- name: install nodeJS version 12
+  shell:
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+  args:
+      warn: no
+
+- name: Install nodejs
+  apt:
+    update_cache: yes
+    name: nodejs
+    state: present
+
+# updae after 
+- name: install updates (Ubuntu) after install dependencies
+  apt:
+    upgrade: dist
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"

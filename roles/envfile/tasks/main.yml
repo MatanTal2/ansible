@@ -1,0 +1,29 @@
+---
+# - name: Copy application .env file to host
+#   become_user: "{{ ansible_user_id }}"
+#   copy:
+#     src: /.env
+#     dest: /home/{{ ansible_user_id }}/bootcamp
+
+- name: Creating an empty file .env
+  file:
+    path: /home/{{ ansible_user_id }}/bootcamp/.env
+    state: touch
+
+- name: generate .env file from template
+  template:
+    dest: /home/{{ ansible_user_id }}/bootcamp/.env
+    src: roles/envfile/templates/env.j2
+
+# - name: become after print
+#   ansible.builtin.debug:
+#     msg: /home/{{ ansible_user_id }}/bootcamp/
+#   become: true
+# - name: become before print
+#   become: true
+#   ansible.builtin.debug:
+#     msg: /home/{{ ansible_user_id }}/bootcamp/
+# - name: become before print
+#   become: true
+#   ansible.builtin.debug:
+#     msg: "{{ inventory_hostname[11:] }} , {{ ansible_eth0.ipv4.address }} "

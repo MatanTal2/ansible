@@ -1,0 +1,4 @@
+- name: run and init the db
+  command: "npm run initdb"
+  args:
+    chdir: /home/{{ ansible_user_id }}/bootcamp
