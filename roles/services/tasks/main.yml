@@ -1,27 +1,27 @@
-# - name: Creating an empty file
-#   file:
-#     path: /etc/systemd/system/myapp.service
-#     state: touch
+- name: Creating an empty file
+  file:
+    path: /etc/systemd/system/myapp.service
+    state: touch
 
-# - name: generate .env file from template
-#   template:
-#     dest: /etc/systemd/system/myapp.service
-#     src: roles/services/templates/myapp.j2
+- name: generate .env file from template
+  template:
+    dest: /etc/systemd/system/myapp.service
+    src: roles/services/templates/myapp.j2
 
-# - name: Just force systemd to reread configs (2.4 and above)
-#   ansible.builtin.systemd:
-#     daemon_reload: yes
+- name: Just force systemd to reread configs (2.4 and above)
+  ansible.builtin.systemd:
+    daemon_reload: yes
 
-# - name: Enable service httpd and ensure it is not masked
-#   ansible.builtin.systemd:
-#     name: myapp.service
-#     enabled: yes
-#     masked: no
+- name: Enable service httpd and ensure it is not masked
+  ansible.builtin.systemd:
+    name: myapp.service
+    enabled: yes
+    masked: no
 
-# - name: Make sure a service unit is running
-#   ansible.builtin.systemd:
-#     state: started
-#     name: myapp.service   
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    state: started
+    name: myapp.service   
 
 
 
@@ -31,24 +31,24 @@
 
 
 
-- name: PM2 npm
-  command: "npm install pm2 -g"
-  args:
-    chdir: '/home/{{ inventory_hostname[:10] }}/bootcamp'
+# - name: PM2 npm
+#   command: "npm install pm2 -g"
+#   args:
+#     chdir: '/home/{{ inventory_hostname[:10] }}/bootcamp'
 
-- name: run web app
-  become: false
-  command: 'pm2 start "npm run dev" --name myapp'
-  args:
-    chdir: '/home/{{ inventory_hostname[:10] }}/bootcamp'
+# - name: run web app
+#   become: false
+#   command: 'pm2 start "npm run dev" --name myapp'
+#   args:
+#     chdir: '/home/{{ inventory_hostname[:10] }}/bootcamp'
 
 
 
-- name: run pm2 startup
-  command: 'pm2 startup systemd -u home --hp /home/{{ inventory_hostname[:10] }}/bootcamp'
-  environment:
-    PATH: "/home/{{ inventory_hostname[:10] }}/bootcamp.env"
-  ignore_errors: True
+# - name: run pm2 startup
+#   command: 'pm2 startup systemd -u home --hp /home/{{ inventory_hostname[:10] }}/bootcamp'
+#   environment:
+#     PATH: "/home/{{ inventory_hostname[:10] }}/bootcamp.env"
+#   ignore_errors: True
 
-- name: Save PM2 configuration
-  command: pm2 save
+# - name: Save PM2 configuration
+#   command: pm2 save
