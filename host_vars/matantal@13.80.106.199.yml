@@ -1,0 +1,18 @@
+---
+# Host configuration
+web_port: 8080
+web_host: "{{ ansible_all_ipv4_addresses | first }}"
+web_url: "http://13.80.107.100:8080"
+# web_url: "http://{{ inventory_hostname[11:] }}:8080"
+web_cockies_pass: "superAwesomePasswordStringThatIsAtLeast32CharactersLong!"
+
+# Okta configuration
+okta_url: "https://dev-57566534.okta.com"
+okta_client_id: "0oa1yxh4cqsoaYt6g5d7"
+okta_client_secret: "NZ4fwe1zWT2-MwlP1gwi2jVgFW12gvSJ3c2nTD_a"
+
+# Postgres configuration
+postgres_host: "prodd.postgres.database.azure.com"
+postgres_username: "postgres@prodd"
+postgres_database: "prodd"
+postgres_pass: "M28Y23tal"

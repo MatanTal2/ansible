@@ -1,3 +1,4 @@
+# ================= Staging =================
 ---
 - hosts: staging
   become: true
@@ -16,6 +17,28 @@
 
 # =========================
 - hosts: staging
+  become: true
+  roles:
+    - role: services
+# ================= production =================
+---
+- hosts: production
+  become: true
+  roles:
+    - role: base
+
+# =========================
+- hosts: production
+  roles:
+    - role: weight_tracker
+
+# =========================
+- hosts: production
+  roles:
+    - role: envfile
+
+# =========================
+- hosts: production
   become: true
   roles:
     - role: services
