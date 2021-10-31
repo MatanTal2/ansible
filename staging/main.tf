@@ -38,7 +38,7 @@ module "staging_vm" {
   rg_name               = azurerm_resource_group.staging.name
   cloud_location        = azurerm_resource_group.staging.location
   vm_size               = "Standard_B1s"
-  user_name             = "${var.user_name}_${count.index}"
+  user_name             = "${var.user_name}"
   admin_pass            = var.admin_password
   disable_password_auth = false
   nic_id                = [element(module.net.nic_id, count.index)]

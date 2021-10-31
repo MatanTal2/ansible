@@ -6,13 +6,13 @@ variable "instances_tags" {
   description = "Tags Owner and Part tags"
 }
 variable "cloud_location" {
-  type = string
+  type        = string
   description = "cloud location"
 }
 variable "RG_staging_name" {
-  type = string
+  type        = string
   description = "staging resource group name"
-  default = "ansible_staging"
+  default     = "ansible_staging"
 }
 
 # Virtual Network variables
@@ -83,34 +83,34 @@ variable "admin_password" {
 variable "disk_caching" {
   type        = string
   description = "Disk caching"
-  default = "ReadWrite"
+  default     = "ReadWrite"
 }
 variable "disk_storage_account_type" {
   type        = string
   description = "Disk storage account type"
-  default = "Standard_LRS"
+  default     = "Standard_LRS"
 }
 
 # source image reference with default values for the Virtual machine
 variable "os_source_image_publisher" {
   type        = string
   description = "image publisher"
-  default = "Canonical"
+  default     = "Canonical"
 }
 variable "os_source_image_sku" {
   type        = string
   description = "image sku"
-  default = "18.04-LTS"
+  default     = "18.04-LTS"
 }
 variable "os_source_image_offer" {
   type        = string
   description = "image offer"
-  default = "UbuntuServer"
+  default     = "UbuntuServer"
 }
 variable "os_source_image_version" {
   type        = string
   description = "image version"
-  default = "latest"
+  default     = "latest"
 }
 ###################################
 
